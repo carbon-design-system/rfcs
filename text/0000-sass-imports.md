@@ -96,6 +96,10 @@ We could also expose hidden APIs/features, like feature flags:
 #### Import only components needed
 
 ```scss
+$css--body: true;
+$css--reset: true;
+
+
 @import 'carbon-components/scss/components/accordion/accordion';
 @import 'carbon-components/scss/components/button/button';
 ```
@@ -103,9 +107,8 @@ We could also expose hidden APIs/features, like feature flags:
 ## Removals from public entrypoint
 
 ```scss
-$css--body: true !default;
-$css--reset: true !default;
-$css--helpers: true !default;
+// Should this be configurable if components use them?
+$css--helpers: true;
 
 // Do we need this anymore?
 $css--use-layer: true !default;
