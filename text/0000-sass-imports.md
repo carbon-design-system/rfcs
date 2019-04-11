@@ -74,42 +74,67 @@ We could also expose hidden APIs/features, like feature flags:
 
 ```scss
 @import 'carbon-components/scss/feature-flags';
+// Manage config for carbon, could also be settings
+@import 'carbon-components/scss/config';
+@import 'carbon-components/scss/settings';
+```
+
+## Common use-cases
+
+#### Importing all carbon styles
+
+```scss
+@import 'carbon-components/scss/styles.scss';
+```
+
+#### Import specific component styles
+
+```scss
+@import 'carbon-components/scss/components/<component>/<component>';
+```
+
+#### Import only components needed
+
+```scss
+@import 'carbon-components/scss/components/accordion/accordion';
+@import 'carbon-components/scss/components/button/button';
+```
+
+## Removals from public entrypoint
+
+```scss
+$css--body: true !default;
+$css--reset: true !default;
+$css--helpers: true !default;
+
+// Do we need this anymore?
+$css--use-layer: true !default;
+
+// Remap to type classes?
+$css--typography: true !default;
+
+// Plex is default now
+$css--plex: true !default;
+// No longer emit font-face
+$css--font-face: true !default;
 ```
 
 # Drawbacks
 
-Why should we *not* do this? Please consider:
-
-- implementation cost, both in term of code size and complexity
-- whether the proposed feature can be implemented in user space
-- the impact on teaching people Carbon
-- integration of this feature with other existing and planned features
-- cost of migrating existing Carbon applications (is it a breaking change?)
-
-There are tradeoffs to choosing any path. Attempt to identify them here.
+- Creates a work item for every team using our current Sass styles entrypoint
 
 # Alternatives
 
-What other designs have been considered? What is the impact of not doing this?
+No alternatives as this a proposal for an existing norm that matches elements.
 
 # Adoption strategy
 
-If we implement this proposal, how will existing Carbon developers adopt it? Is
-this a breaking change? Can we write a codemod? Should we coordinate with
-other projects or libraries?
+- Could create migration helpers using `carbon-upgrade` to rewrite paths automatically for teams
+- Communicate roadmap and decision through blogs and on slack
+- Communicate when work is merged in and link to blogs and migration tool
 
 # How we teach this
 
-What names and terminology work best for these concepts and why? How is this
-idea best presented? As a continuation of existing Carbon patterns?
-
-Would the acceptance of this proposal mean the Carbon documentation must be
-re-organized or altered? Does it change how Carbon is taught to new developers
-at any level?
-
-How should this feature be taught to existing Carbon developers?
+We should document these as part of the release in SassDoc, in the project README, and on the site.
 
 # Unresolved questions
-
-Optional, but suggested for first drafts. What parts of the design are still
-TBD?
