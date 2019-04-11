@@ -32,11 +32,49 @@ This RFC aims to propose a simplification of our Sass imports, in addition to al
 
 # Detailed design
 
-This is the bulk of the RFC. Explain the design in enough detail for somebody
-familiar with Carbon to understand, and for somebody familiar with the
-implementation to implement. This should get into specifics and corner-cases,
-and include examples of how the feature is used. Any new terminology should be
-defined here.
+The entrypoint for `carbon-components`'s SCSS would be updated to:
+
+```scss
+@import 'carbon-components/scss/styles.scss';
+```
+
+_Note: all new import paths will not remove the old import path, but instead will serve as an alias_
+
+Specific componene imports would stay as:
+
+```scss
+@import 'carbon-components/scss/components/button/button';
+```
+
+We would also expose element-specific behavior:
+
+```scss
+@import 'carbon-components/scss/colors';
+@import 'carbon-components/scss/themes';
+@import 'carbon-components/scss/layout';
+@import 'carbon-components/scss/grid';
+@import 'carbon-components/scss/icons';
+@import 'carbon-components/scss/type';
+@import 'carbon-components/scss/motion';
+
+// Maybe these would be useful, as well?
+@import 'carbon-components/scss/spacing';
+@import 'carbon-components/scss/reset';
+```
+
+Alongside any helpers that they may want to reference:
+
+```scss
+@import 'carbon-components/scss/variables';
+@import 'carbon-components/scss/mixins';
+@import 'carbon-components/scss/functions';
+```
+
+We could also expose hidden APIs/features, like feature flags:
+
+```scss
+@import 'carbon-components/scss/feature-flags';
+```
 
 # Drawbacks
 
