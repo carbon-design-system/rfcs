@@ -1,25 +1,53 @@
-- Start Date: (fill me in with today's date, YYYY-MM-DD)
+- Start Date: 2019-04-XX
 - RFC PR: (leave this empty)
 - Carbon Issue: (leave this empty)
 
-# Summary
-
-Brief explanation of the feature.
-
-# Basic example
-
-If the proposal involves a new or changed API, include a basic code example.
-Omit this section if it's not applicable.
-
 # Motivation
 
-Why are we doing this? What use cases does it support? What is the expected
-outcome?
+Carbon is currently split up into a variety of projects that are maintained by the core team and the Carbon community. This list includes:
 
-Please focus on explaining the motivation so that if this RFC is not accepted,
-the motivation could be used to develop alternative solutions. In other words,
-enumerate the constraints you are trying to solve without coupling them too
-closely to the solution you have in mind.
+- `carbon-components` for component styles and Vanilla implementation
+- `carbon-components-react` for React components
+- `carbon-components-angular` for Angular
+- `@carbon/vue` for Vue
+- `carbon-addons-*` for Business-unit specific components built alongside Carbon
+
+_Note: this list does not include projects like `carbon-website` or the Carbon Elements monorepo_
+
+Organizing projects in this way has naturally lead to:
+
+- Autonomy of each group to make decisions on how to best deliver their work
+- Focused contributions for specific implementations, which can make first-time contributions less intimidating
+- Tailored backlogs for each project, and potentially repo-specific labelling systems that work best for maintainers
+
+Some of the drawbacks of this organization include:
+
+- Low amount of code re-use between projects
+- Lack of consistency in projects with respect to:
+  - Project tasks
+    - Formatting
+    - Linting
+    - Testing (if sharing same testing framework)
+  - `package.json`
+    - Meta information
+    - Tags
+    - `main`/`module` distinctions
+  - Package output
+    - Bundle types
+    - Is tree-shakeable?
+    - Can I use only one component?
+- Varying versions between the implementations (v10 vs v7 vs v3 vs v1)
+- All frameworks have trouble working on styles and new functionality because of separation
+- Sometimes it can be confusing where to make an issue, e.g. is it a style bug or implementation-specific?
+
+
+
+
+
+This RFC proposes a new structure for the Carbon ecosystem in the form of a core project used for all components, their implementations, and tooling related to building components.
+
+- Build components like Reach in that you can use them OOTB without styling, but can also include carbon styling
+  - Built on top of theme engine
 
 # Detailed design
 
