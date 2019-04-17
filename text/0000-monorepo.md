@@ -2,7 +2,7 @@
 - RFC PR: (leave this empty)
 - Carbon Issue: (leave this empty)
 
-# Motivation
+# Overview
 
 Carbon is currently split up into a variety of projects that are maintained by the core team and the Carbon community. This list includes:
 
@@ -22,7 +22,6 @@ Organizing projects in this way has naturally lead to:
 
 Some of the drawbacks of this organization include:
 
-- Low amount of code re-use between projects
 - Lack of consistency in projects with respect to:
   - Project tasks
     - Formatting
@@ -36,26 +35,82 @@ Some of the drawbacks of this organization include:
     - Bundle types
     - Is tree-shakeable?
     - Can I use only one component?
+- Low amount of code re-use between projects
 - Varying versions between the implementations (v10 vs v7 vs v3 vs v1)
 - All frameworks have trouble working on styles and new functionality because of separation
 - Sometimes it can be confusing where to make an issue, e.g. is it a style bug or implementation-specific?
+- Coordinating major releases of the system is challenging
 
+This RFC proposes a new structure for the Carbon ecosystem in the form of a core project used for all components, their implementations, and tooling related to building components. This new structure would provide the following benefits for the ecosystem:
 
-
-
-
-This RFC proposes a new structure for the Carbon ecosystem in the form of a core project used for all components, their implementations, and tooling related to building components.
-
-- Build components like Reach in that you can use them OOTB without styling, but can also include carbon styling
-  - Built on top of theme engine
+- All components are available as standalone packages
+- Implementation-specific packages now supply everything needed to have a project running with carbon (no need to install `carbon-components`!)
+- Versions across packages follow the same major version, eliminating confusion for what support is provided for a given component or implementation
+- Increase visibility as to what is a carbon component
+- Colocation of components facilitates consistency and hopefully code re-use
+- Increase quality of each component in the ecosystem
 
 # Detailed design
 
-This is the bulk of the RFC. Explain the design in enough detail for somebody
-familiar with Carbon to understand, and for somebody familiar with the
-implementation to implement. This should get into specifics and corner-cases,
-and include examples of how the feature is used. Any new terminology should be
-defined here.
+## The monorepo
+
+This proposal frames Carbon as one public repo where all components and their implementations live. This repo could live under IBM/carbon, or carbon-design-system/carbon.
+
+The repo itself will be bootstrapped using a combination of [Yarn Workspaces](https://yarnpkg.com/lang/en/docs/workspaces/) and [Lerna](https://lernajs.io). We will configure yarn to have an offline mirror at `.yarn-offline-mirror` to enable deployments in CI without having to touch the live registry.
+
+At the top-level of the project, the folder structure would look like:
+
+```
+.
+├── .git
+├── .yarn-offline-mirror
+├── .yarnrc
+├── lerna.json
+├── package.json
+├── packages
+└── yarn.lock
+```
+
+### Yarn and Lerna
+
+### Project settings
+
+### Continuous Integration
+
+- Public vs private
+- Project
+- Dependencies
+- Development
+- CI
+- Publishing
+
+- CODEOWNERS
+- All components in package
+- Talk structure
+
+Questions:
+
+- how does a new package (component) get added?
+- how do we communicate support for a package?
+- issues
+  - how to appropriately tag
+- pull requests
+  - who owns reviews?
+- notifications explosion?
+
+## Component packages
+
+## Framework packages
+
+## Patterns
+
+## Add-ons
+
+## Misc
+
+- Spec
+- tooling
+- Storybook
 
 # Drawbacks
 
