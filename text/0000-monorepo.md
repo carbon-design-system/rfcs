@@ -182,6 +182,10 @@ yarn add @carbon/button-react
 
 As it would contain everything needed to use the component, while still relying on the core package and receiving updates.
 
+In addition, each framework would have an entrypoint for core components. For React, this package would be found under: `packages/react` and would be published to `@carbon/react`.
+
+The `@carbon/react` package would be responsible for depending on all core components, and re-exporting their implementations and styles. This means that in order to use the React set of carbon components, one would only need to install `@carbon/react` as it includes both component implementations and styles.
+
 ### Community-contributed components
 
 In addition to core components and framework implementations, this proposal also looks to introduce the idea that there is **one** repo where carbon component development lives. This idea drifts from the add-on model and is explored in the [add-ons](#add-ons) section of this RFC.
