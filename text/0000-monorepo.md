@@ -192,14 +192,31 @@ In addition to core components and framework implementations, this proposal also
 
 With respect to the packages, they would follow the same structure as above but with (most likely) less information around usage, documentation, and component specs.
 
+### Component development
+
+We would structure the project so that component development happened using storybook. Given our usage of Yarn workspaces and lerna, we could subsequently build packages for each storybook development environment for each implementation. In addition, we could have specific frameworks have their own development environment, where applicable.
+
+Given the potential size of the component library, it may also be necessary to invest in development tooling to help make working on individual components fast and simple. One idea could be an internal CLI tool that would enable folks to target specific frameworks or components for development in a storybook environment. This could look like:
+
+```bash
+# Develop a component in a vanilla environment
+carbon-cli develop @carbon/button
+
+# Develop a component in a react environment
+carbon-cli develop @carbon/button-react
+
+# Develop multiple components
+carbon-cli develop @carbon/button-react @carbon/pagination-react @carbon/data-table-react
+
+# Develop all react components
+carbon-cli develop @carbon/react
+```
+
+## Ownership and access
+
 ## Add-ons
 
 ## Misc
-
-- Spec
-- tooling
-- Storybook
-
 
 - Public vs private
 - Project
