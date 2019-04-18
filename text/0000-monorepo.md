@@ -115,6 +115,88 @@ In addition, CircleCI can allow us to automatically publish canaries for each pa
 
 If artifacts are necessary for component or implementation packages, like storybook or examples, then we can automate this through CircleCI to publish to either IBM Cloud or GitHub pages.
 
+If publishing through GitHub pages, we would most likely need to share the same vanity URL and have packages published at sub-paths. A couple of options could be:
+
+```
+https://www.carbondesignsystem.com/storybook/<framework>
+https://docs.carbondesignsystem.com/<framework>
+```
+
+## Component packages
+
+In theory, we could support component packages for every framework implementation. As a result, the following packages would be siblings of each other:
+
+```
+packages
+├── button
+├── button-angular
+├── button-react
+└── button-vue
+```
+
+However, we could limit these packages to only core packages, if needed. We could also move components to their own sub-packages folder, for example `packages/react` or a top-level `react` set of packages.
+
+The primary component package would be found under `packages/button` and would contain the following contents:
+
+- The Vanilla.js implementation of the component, this is to facilitate sharing with frameworks
+- The style representation of the component, initially this would be Sass but could in theory be multiple formats that are offered
+- A specification for the component (where applicable)
+- Metadata around the component (could be a generated artifact) to be consumed by websites to aid in search result ranking
+- Tests for the component
+- A development "story" for storybook
+- Other exports that could be useful for sites
+  - Usage content for the component (mdx)
+  - Component docs (mdx)
+
+The package name itself would follow the convention `@carbon/<component>`, for example `@carbon/button`. Each component is given it's own package to allow for the following situations:
+
+- Ability to see usage information around a specific component
+- Allow add-on teams to import components as needed (see [Community-contributed components](#community-contributed-components))
+- Allow ability to use individual components as-needed
+- Allow framework-specific solutions to easily add in components and re-export them as-needed
+
+### Frameworks
+
+A framework-specific component package would be found under `packages/button-<framework>`. For example, `packages/button-react`. This package would import `@carbon/button` (found at `packages/button`) and has the option to use the Vanilla.js implementation if applicable.
+
+The framework-specific package would include:
+
+- The framework implementation of the component, using Vanilla as needed
+- A specification for the component
+- Metadata for the component
+- Tests
+- A development "story" for the component
+- Imports styles from `@carbon/button` and re-exports them
+
+We include **both** styles and implementation so that instead of having to do:
+
+```bash
+yarn add @carbon/button @carbon/button-react
+```
+
+One can write:
+
+```bash
+yarn add @carbon/button-react
+```
+
+As it would contain everything needed to use the component, while still relying on the core package and receiving updates.
+
+### Community-contributed components
+
+## Framework packages
+
+## Patterns
+
+## Add-ons
+
+## Misc
+
+- Spec
+- tooling
+- Storybook
+
+
 - Public vs private
 - Project
 - Dependencies
@@ -135,20 +217,6 @@ Questions:
 - pull requests
   - who owns reviews?
 - notifications explosion?
-
-## Component packages
-
-## Framework packages
-
-## Patterns
-
-## Add-ons
-
-## Misc
-
-- Spec
-- tooling
-- Storybook
 
 # Drawbacks
 
