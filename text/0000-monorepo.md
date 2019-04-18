@@ -292,9 +292,22 @@ What other designs have been considered? What is the impact of not doing this?
 
 # Adoption strategy
 
-If we implement this proposal, how will existing Carbon developers adopt it? Is
-this a breaking change? Can we write a codemod? Should we coordinate with
-other projects or libraries?
+The majority of this work would be internal to the Carbon core team, or for the maintainers of specific frameworks and add-ons.
+
+The ideal would be to break up this proposal into several stages that can then help determine a ship/no-ship status for this approach. These stages include:
+
+- Stage 1: Convert existing carbon core projects to a single monorepo (the Carbon repo)
+- Stage 2: Add framework-specific projects to the Carbon repo
+- Stage 3: Add add-on components to the Carbon repo
+
+Alongside these stages, we would need to define several items including:
+
+- What is the process for adding a new component package? Is it okay if this package lives only for a particular framework?
+- What is the release cadence like for packages?
+- How do we communicate when components are core-supported versus community-supported? In their README? On the website?
+- How does one suggest another framework implementation? For example, if a team wanted preact or svelte.
+
+However, it should be noted, that each stage is setup to provide feedback as to whether or not to proceed. If we go through stage 1 and decide the strategy **does not** work, then we can stop any of the subsequent stages to prevent further churn in the ecosystem.
 
 # How we teach this
 
