@@ -184,9 +184,9 @@ As it would contain everything needed to use the component, while still relying 
 
 ### Community-contributed components
 
-## Framework packages
+In addition to core components and framework implementations, this proposal also looks to introduce the idea that there is **one** repo where carbon component development lives. This idea drifts from the add-on model and is explored in the [add-ons](#add-ons) section of this RFC.
 
-## Patterns
+With respect to the packages, they would follow the same structure as above but with (most likely) less information around usage, documentation, and component specs.
 
 ## Add-ons
 
