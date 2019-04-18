@@ -225,42 +225,24 @@ In addition to hosting files relevant to implementation of a component, each pac
 
 ## Ownership and access
 
+Given that this project would be used for all carbon development, we would need to look at how we're currently doing ownership and access across our existing projects and use that to determine what would be most appropriate for this project.
+
+At a high-level, we would use GitHub's [`CODEOWNERS`](https://help.github.com/en/articles/about-code-owners) functionality to assign GitHub teams to specific parts of the project. These teams would be aliases of our workstreams, most likely. This would trigger required reviews
+
+Push access to the project would be given to all members of the GitHub teams included in the project.
+
+Publish access would ideally be automated through CI, but manual access can be granted to packages that belong to a specific GitHub team / workstream.
+
 ## Add-ons
 
 ## Misc
 
 - Public vs private
-- Project
-- Dependencies
-- Development
-- CI
-- Publishing
-
-- CODEOWNERS
-- All components in package
-- Talk structure
-
-Questions:
-
-- how does a new package (component) get added?
-- how do we communicate support for a package?
-- issues
-  - how to appropriately tag
-- pull requests
-  - who owns reviews?
-- notifications explosion?
 
 # Drawbacks
 
-Why should we *not* do this? Please consider:
-
-- implementation cost, both in term of code size and complexity
-- whether the proposed feature can be implemented in user space
-- the impact on teaching people Carbon
-- integration of this feature with other existing and planned features
-- cost of migrating existing Carbon applications (is it a breaking change?)
-
-There are tradeoffs to choosing any path. Attempt to identify them here.
+- GitHub noise for issues and PRs, labelling
+- Unclear what is supported by core
 
 # Alternatives
 
