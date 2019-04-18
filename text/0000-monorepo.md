@@ -107,6 +107,14 @@ However, this does not mean that all packages in the project have to follow thes
 
 ### Continuous Integration
 
+The project will use CircleCI for continuous integration with a Node.js docker base image. CircleCI has been a good fit so far, and we anticipate being able to use its [workflows](https://circleci.com/docs/2.0/workflows/) functionality to help maximize parallelism for ci checks across packages.
+
+In addition, CircleCI can allow us to automatically publish canaries for each package, alongside coordinate automated releases through native git behavior or custom rules that we define. It will also enable continuous deployments for development environments, like published storybooks.
+
+#### Publishing artifacts
+
+If artifacts are necessary for component or implementation packages, like storybook or examples, then we can automate this through CircleCI to publish to either IBM Cloud or GitHub pages.
+
 - Public vs private
 - Project
 - Dependencies
