@@ -235,6 +235,49 @@ Publish access would ideally be automated through CI, but manual access can be g
 
 ## Add-ons
 
+Within this proposal, the role of an add-on will most likely need to be re-defined. Currently, an add-on exists as a supplement to the Carbon Design System. This means that teams arrive at solutions that they need that don't exist in Carbon currently, and they have a desire to share within their team. The add-on model works well for this direct use-case, but unfortunately when scaling out Carbon to all of IBM this model has a habit of entrenching behavior.
+
+For example, imagine we had teams A, B, and C all working on platforms. Team A comes up with a `PlatformHeader` component that teams B and C would like to use.
+
+Team B can use the component as-is, which is great. However, Team C would like some current functionality tweaked to meet their use-case. While teams A and C could work together to arrive at a joint resolution, often times deadlines and scope limit this kind of collaboration.
+
+In addition, the experience of the developer can be confusing in these moments. The packages for these add-ons would like be:
+
+```
+# Team A
+carbon-addons-a
+carbon-addons-b
+carbon-addons-c
+```
+
+In the existing landscape, team B would need to install (at minimum) the following:
+
+```bash
+yarn add carbon-components \
+  carbon-components-react \ 
+  carbon-icons \
+  carbon-addons-a \
+  carbon-addons-a-react \
+  carbon-addons-b \
+  carbon-addons-b-react 
+```
+
+Ideally, the best experience for this group would be a single `carbon-addons-b` or `carbon-addons-b-react`.
+
+The other downside to this is the aspect of who owns support and who decides what is in-scope for enhancements of a component. When components are built inside add-ons, this can fall on the team whose add-on houses the component. However, if another team is requesting enhancements most likely they should be the ones to implement (when reasonable).
+
+As a result, the proposal is that **all** component development happens in the Carbon repo and add-on packages move to becoming **the defacto way to use Carbon for a Business unit, portfolio, offering, or team**. What this means is that add-ons move increasingly towards their domain, and components like `PlatformHeader` should move to the main Carbon repo.
+
+This does not prohibit multiple `PlatformHeader` components, however. If we used the situation above, we could have a singular `platform-header` package. Inside this package we could have multiple implementations under `PlatformHeader.A.js`, `PlatformHeader.B.js`, etc. This allows us to both allow teams to ship things under their unique deadlines/constraints while also allowing colocation of related components with the eventual goal of converging implementations.
+
+In addition, having shared packages allows teams to make proposals through a formal RFC process and decide on changes as a group instead of tying ownership to any particular add-on.
+
+As a result, the add-on packages increasingly move towards providing Carbon in the best way for their group. This can include depending on the entire component library, or only on the components a brand needs. In addition, add-ons would provide domain-specific behavior (like data fetching) alongside components to make it even easier for product developers to deliver new functionality.
+
+## Design Kit
+
+- Components???
+
 ## Misc
 
 - Public vs private
