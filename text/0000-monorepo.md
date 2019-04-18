@@ -58,11 +58,10 @@ This proposal frames Carbon as one public repo where all components and their im
 
 The repo itself will be bootstrapped using a combination of [Yarn Workspaces](https://yarnpkg.com/lang/en/docs/workspaces/) and [Lerna](https://lernajs.io). We will configure yarn to have an offline mirror at `.yarn-offline-mirror` to enable deployments in CI without having to touch the live registry.
 
-At the top-level of the project, the folder structure would look like:
+At the top-level of the project, the folder structure would roughly look like:
 
 ```
 .
-├── .git
 ├── .yarn-offline-mirror
 ├── .yarnrc
 ├── lerna.json
@@ -71,9 +70,40 @@ At the top-level of the project, the folder structure would look like:
 └── yarn.lock
 ```
 
+All components would live under the `packages` folder as standalone component packages. We would also expose packages for interacting with styles and implementation-specific bundles of components or patterns. At a high-level, this would look like:
+
+```
+packages
+├── button
+├── button-react
+├── button-vue
+├── components
+├── react
+├── storybook-html
+├── storybook-react
+├── storybook-vue
+├── styles
+└── vue
+```
+
+_Note: the current proposal has components from different implementations living together, but that is not a direct goal of this RFC. We just wanted to show how we could support multiple frameworks in the same project._
+
 ### Yarn and Lerna
 
+The project itself will be managed as a Yarn workspace, which allows us to integrate multiple types of packages into the same project successuflly. In other words, we could use this setup to develop components in Angular, Vue, React, etc. through the options given to us by using Yarn (though we do not have to do this).
+
+The counterpart to managing multiple packages is [Lerna](https://lerna.js.org/). This will enable us to have consistent package publishing both in CI for releases and in manual publishing situations.
+
 ### Project settings
+
+At the top-level, the project will be opinionated about:
+
+- File formatting with prettier
+- Linting with ESLint and Stylelint
+- Testing with Jest
+- `.editorconfig` settings
+
+However, this does not mean that all packages in the project have to follow these rules. If needed, packages can opt-out of these and use their own settings that would be more appropriate.
 
 ### Continuous Integration
 
