@@ -274,18 +274,17 @@ In addition, having shared packages allows teams to make proposals through a for
 
 As a result, the add-on packages increasingly move towards providing Carbon in the best way for their group. This can include depending on the entire component library, or only on the components a brand needs. In addition, add-ons would provide domain-specific behavior (like data fetching) alongside components to make it even easier for product developers to deliver new functionality.
 
-## Design Kit
-
-- Components???
-
-## Misc
-
-- Public vs private
-
 # Drawbacks
 
-- GitHub noise for issues and PRs, labelling
-- Unclear what is supported by core
+The main disadvantages of using the strategies outlined above is that it forces our model into a monorepo. While this in and of itself is not a negative thing, it does shift a portion of our development time towards investing in tooling to help make working in a monorepo more enjoyable.
+
+Aspects of this include a custom CLI to help with working on a single component, in addition to tooling or strategies for scaling out our core tools so that they are either fast on a large number of files, or only run on files that have chanegd.
+
+In addition, while moving work to one project eliminates any confusion to issue creation, we run into a problem where everyone will get additional notifications that may not be related to their core project. The immediate action after this would be to ignore conversations that one is not actively participating in, but this could lead to issues not getting any response.
+
+There are ways to mitigate this, including issue templates, but ultimately scaling issues and pull requests in a monorepo with multiple teams/collaboratos is still an unknown.
+
+Finally, there is a concern around making everything under the Carbon umbrella public. The main use-case being: what if a team wants to use Carbon to build a component but is unable to make this component open-source? One solution could be the mirror our project to an internal GitHub Enterprise repo, but this could cause fragmentation in the ecosystem.
 
 # Alternatives
 
