@@ -212,6 +212,17 @@ carbon-cli develop @carbon/button-react @carbon/pagination-react @carbon/data-ta
 carbon-cli develop @carbon/react
 ```
 
+### Component package files
+
+In addition to hosting files relevant to implementation of a component, each package would have relevant files kept in sync or generated automatically. These types of files include:
+
+- READMEs
+  - Can automate the structure/format, including dynamic documentation and example links while allowing custom usage sections
+- npm files
+  - `package.json` will have deterministic ordering and appropriate fields for versions, keywords, and publish config
+  - `.npmignore` will have appropriate defaults
+- A `docs` folder for generated SassDoc and JSDoc information
+
 ## Ownership and access
 
 ## Add-ons
