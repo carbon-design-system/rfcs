@@ -288,7 +288,7 @@ Finally, there is a concern around making everything under the Carbon umbrella p
 
 # Alternatives
 
-What other designs have been considered? What is the impact of not doing this?
+The main alternative would be for **only** Carbon core to have a monorepo design. Given a desire to want to ship per-component packages, it is hard to see how we could scale doing repo-per-compnoent efforts. Particularly with respect to consistency between projects, keeping things up-to-date, and the experience of working with interlinked components, aka compound components.
 
 # Adoption strategy
 
@@ -311,16 +311,13 @@ However, it should be noted, that each stage is setup to provide feedback as to 
 
 # How we teach this
 
-What names and terminology work best for these concepts and why? How is this
-idea best presented? As a continuation of existing Carbon patterns?
+The top-level points we need to communicate will be:
 
-Would the acceptance of this proposal mean the Carbon documentation must be
-re-organized or altered? Does it change how Carbon is taught to new developers
-at any level?
-
-How should this feature be taught to existing Carbon developers?
+- Carbon is moving towards a single repo (or potentially two if doing private) where **all** component development occurs
+- Add-ons are being changed in scope to become how a team uses Carbon in their Business Unit, offering, portfolio, or team and uses component packages alongside domain or tool-specific requirements for their group
+- Components in the Carbon repo can be core or community-supported, and how to distinguish between them
+- How does one develop inside of the Carbon repo on a single component, a group of components, a pattern, etc.
 
 # Unresolved questions
 
-Optional, but suggested for first drafts. What parts of the design are still
-TBD?
+- Where do community-lead packages live with respect to Design Kits?
