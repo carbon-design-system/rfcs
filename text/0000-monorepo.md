@@ -288,6 +288,28 @@ In addition, having shared packages allows teams to make proposals through a for
 
 As a result, the add-on packages increasingly move towards providing Carbon in the best way for their group. This can include depending on the entire component library, or only on the components a brand needs. In addition, add-ons would provide domain-specific behavior (like data fetching) alongside components to make it even easier for product developers to deliver new functionality.
 
+## GitHub
+
+The proposed project will live in GitHub and subsequently we will need to consider how this impacts things like:
+
+- Notifications
+- Issue templates
+- Pull Request templates
+
+These areas will need to be addressed in order to prevent excessive notifications, and provide reasonable options for issue templates to help with triage. Pull request templates are one item that should be shared across the projects as it will provide a formal structure for documenting proposed changes and reviewing them.
+
+For Notifications, most likely we would have to do a custom solution instead of relying on GitHub notifications. There are a couple strategies we could follow:
+
+- Create issue templates based on project areas. These templates could auto-label issues
+- Create a single issue template similar to [`DefinitelyTyped`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/ISSUE_TEMPLATE.md) that includes notifying owners so they trigger a notification
+  - This issue template explains that not notifying owners means that the issue will be ignored
+  - We could use a bot (like stale bot) to auto-close issues without responses in this format
+  - We could create a bot that infers project owners from issue titles if they write out the package name
+  
+This strategy bleeds into issue templates in that we would most likely want a specific structure around issue titles and contents for things like bugs, feature requests, and support.
+
+Pull request templates would ideally follow our current format where they have a corresponding issue and provide a high-level change log and steps to review.
+
 # Drawbacks
 
 The main disadvantages of using the strategies outlined above is that it forces our model into a monorepo. While this in and of itself is not a negative thing, it does shift a portion of our development time towards investing in tooling to help make working in a monorepo more enjoyable.
