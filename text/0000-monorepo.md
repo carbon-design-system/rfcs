@@ -122,6 +122,20 @@ https://www.carbondesignsystem.com/storybook/<framework>
 https://docs.carbondesignsystem.com/<framework>
 ```
 
+### Releasing packages
+
+Alongside colocating packages inside of this project, this RFC also proposes that all packages intended to work with each other in the Carbon ecosystem should have the same major version. This would mean that component packages, alongside framework packages, would all use their major version to match whatever version of Carbon they support. If Carbon is at v11, then this would mean the packages would have some version number like `11.x.y`.
+
+_Note: a big drawback here is around forcing semantic versioning. What if a package doesn't have to have a major bump in order to work?_
+
+In addition, Carbon would be introduced in the form of several iterations between major version changes that occur approximately every six months. These iterations would fall under minor releases and would signify the latest available Carbon version. 
+
+_Note: not every package has to match on minor versions, just on major versions._
+
+Using Lerna, we can automate publishing canaries of each package, alongside making sure all versions of packages are updated in any package that depends on it in the project. These releases would derive version bumps using a standard commit message format using conventional commit, which would also help in generating changelogs for each package and release notes in GitHub Releases.
+
+Hotfixes for packages can be releases as-needed, and there is no limit to the number of patch releases in a given `major.minor.patch` range.
+
 ## Component packages
 
 In theory, we could support component packages for every framework implementation. As a result, the following packages would be siblings of each other:
