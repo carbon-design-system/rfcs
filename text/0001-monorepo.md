@@ -1,6 +1,6 @@
-- Start Date: 2019-04-XX
-- RFC PR: (leave this empty)
-- Carbon Issue: (leave this empty)
+- Start Date: 2019-05-01
+- RFC PR: https://github.com/carbon-design-system/carbon/pull/2363
+- Carbon Issue: a
 
 # Overview
 
