@@ -120,7 +120,9 @@ The Carbon Addons Cli tool is the core library that functions as a foundation fo
 This library come with the following commands:
 
 <hr/>
+
 ### `carbon-addons init`
+
 ##### Description
 Creates a new [components library](#component-library) at `/component` and a new [docs](#docs) site at `/docs`
 
