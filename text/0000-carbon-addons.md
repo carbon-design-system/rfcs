@@ -11,7 +11,7 @@ A Carbon Addon is a component library that acts as an extension of the Carbon De
 - Integrated into the Carbon Ecosystem
 - Accessible
 
-Carbon Addons can also contain connections to APIs and components that are already hooked up to databases.
+Carbon Addons can also contain connections to APIs and components that are already hooked up to data.
 
 #### Goals of a Carbon Addon
 - To decrease front end development time.
@@ -29,7 +29,7 @@ Carbon Addons can also contain connections to APIs and components that are alrea
 
 
 # Basic example
-Carbon Addons are broken down into a few high-level concepts or utilities.
+Carbon Addons and it's associated tools are broken down into a few high-level concepts or utilities.
 
 ### Components (Addon)
 Components are created based on predefined templates. A component can be anything from a standard dumb component, a specific variation of a Carbon component, a function that retrieves data from an API, a smart component that is attached to an API, or anything that is templated. By default, all components for a specific Addon library will be under the `/components` folder. All components also come with MDX documentation.
@@ -46,16 +46,18 @@ Here are some examples of potential templates:
 A view component is essentially a dumb component. This component is responsive, accessible, and fully tested.
 
 ##### Data Hooks
-A data hook is a way to make an API call using React Hooks and Graphql.
+A data hook is a way to make an API that returns a stateful response.
 
 ##### Connected
-A connected component is a smart component in that it is already hooked up to a data source.
+A connected component is a smart component in that it is made up of Views and Data Hooks combined.
 
 ### CLI (Tooling)
-The CLI is the main way of creating and interacting with a Carbon Addon. With the CLI a user can create a new library, create a new component from a template, develop the components or docs, build the components or docs, or publish the components and docs.
+The CLI is the main way of creating and interacting with a Carbon Addon. With the CLI a user can create a new library, create a new component from a template, develop an existing component or docs, build the components or docs for release, or publish the components and docs.
 
 ### Dev Server (Tooling)
-The Development server is a basic Parcel server that is used to develop the Carbon Addon components. This can be customized to use a custom server through the CLI so you can properly make API calls without CORs issues.
+The Development server is used to develop the Carbon Addon components. 
+This server should be customizable to use a custom server through the CLI 
+so you can properly make API calls without CORs issues.
 
 The development server will render a selected MDX file for development, meaning that the components docs are also the component's development environment.
 
@@ -65,11 +67,11 @@ Utilities are libraries that help abstract complex development aspects around co
 ##### Docs Components
 Components used for the development of components with the dev server or display of components on the docs.
 
-##### Data Hooks
-An abstraction for making API calls with React hooks. This library provides a client-side cache and optimistic updates for Data Hooks.
+##### Data Hook Utils
+This library provides a client-side cache and optimistic updates for Data Hooks. Handles all data hook calls and controls the response.
 
 ### Example Carbon Addon Structure
-All of these pieces add up to a working component library with a minimal amount of foundational development. For example, a Carbon Addon Libray would look something like this:
+All of these pieces add up to a working component library with a minimal amount of foundational development. For example, a Carbon Addon Libray could look something like this:
 
 ```
 /components
@@ -102,9 +104,9 @@ package.json
 # Motivation
 - Carbon Addons throughout IBM today are very scattered. They have completely different goals, patterns, and level of dedication from their development teams. Because each Carbon Addon functions completely differently there isn't a lot of room for work to be shared across Carbon Addons.
 
-- There is also a significant amount of work needed to set up and maintain a Carbon Addon. Development team's across business units spend a significant amount of time solving the same problems or building the same components. As of right today, Carbon is the only real standard across UI development within IBM. However, Carbon's mission and plans only extend to the design system.
+- There is a significant amount of work needed to set up and maintain a Carbon Addon. Development team's across business units spend a significant amount of time solving the same problems or building the same components. As of today, Carbon is the only real standard across UI development within IBM. However, Carbon's mission and plans only extend to the design system.
 
-- Carbon covers a high level need for UI product developers when it comes to low level components. However, in many of our products there is a futher need to share components that are more specific than Carbon will ever want to contain. Today, there isn't an established pattern for how to share those product specific components.
+- Carbon covers a high level need for UI product developers by providing the lowest level components. However, in many of our products, there is a further need to share components that are more specific than Carbon contains. Today, there isn't an established pattern for how to share those product specific components across the business unit.
 
 # Detailed design
 - [CLI](https://github.com/loganmccaul/rfcs/blob/master/text/0000-carbon-addons.md#cli-carbon-addons-cli)
@@ -117,7 +119,7 @@ package.json
 ## CLI (carbon-addons-cli)
 The Carbon Addons Cli tool is the core library that functions as a foundation for Carbon Addons.
 
-This library come with the following commands:
+This library comes with the following commands:
 
 <hr/>
 
@@ -130,26 +132,18 @@ Creates a new [components library](#component-library) at `/component` and a new
 `--folder-name` Creates a custom folder name for the Component library
 
 ##### Prompts
+1. Requests the langauge the Addon should be created in. (React, Vue, Angular, Native...)
 1. Requests a name for the components library, this will be added to the `package.json` file.
-2. Asks which [templates](#templates) will be used for this package (1 minimum)
 
 <hr/>
 
-### `carbon-addons update [path]`
-##### Description
-Adds a new [template](#templates) to the selected pacakge
-
-##### Options
-`[path]` The path to the component library
-
-<hr/>
 
 ### `carbon-addons components create [path]`
 ##### Description
 Creates a new component based on a component template.
 
 ##### Options
-`[path]` The path to the component library
+`[path]` The path to the component library.
 
 ##### Prompts
 1. Multiselect option of all templates.
@@ -224,19 +218,21 @@ Components are the real substance of a Carbon Addon. They are the output or the 
 
 In order to help keep consistency between different Carbon Addons, components are built based on [templates](https://github.com/loganmccaul/rfcs/blob/master/text/0000-carbon-addons.md#templates-carbon-addons-templates). Custom components are not allowed in order to maintain reusability. If a new type of component is needed then a new template can be created. That is to say, templates should not be limiting.
 
-In similar fashion to Storybook and in order to encourage documentation of components, the development is done through the [development server](https://github.com/loganmccaul/rfcs/blob/master/text/0000-carbon-addons.md#templates-carbon-addons-templates) which will load the code.mdx file (by default) attached to the component. This will render the same screen that will be published to the docs and can utilize docs components for demonstration purposes.
+In similar fashion to Storybook and in order to encourage documentation of components, the development is done through the [development server](https://github.com/loganmccaul/rfcs/blob/master/text/0000-carbon-addons.md#templates-carbon-addons-templates) which will load the `code.md` file (by default) associated with the component. The `code.md` is the same that will be published to the docs and can utilize docs components for demonstration purposes.
 
 The [CLI](https://github.com/loganmccaul/rfcs/blob/master/text/0000-carbon-addons.md#templates-carbon-addons-templates) tool can be used to select one or more components to develop at a time. Allowing for Carbon Addon developers to focus on a specific task.
 
 Using the provided CI config files components can be easily set up to manually publish using lerna or semantic release. I am still not sure of the best way to handle versioning between different libraries or with Carbon. I would love to hear any ideas.
 
-Components can also include other Docs files. For example, a View component has the `code.mdx` file, but also `styles.md` and `usage.mdx`. These docs files should be included in the mdx frontmatter as tabs and are used to showcase design documentation.
+Components can also include other Docs files. For example, a View component has the `code.md` file, but also `styles.md` and `usage.md`. These docs files should be included in the mdx frontmatter as tabs and are used to showcase design documentation.
 
 ## Docs
 
 Using the built-in devops scripts all components in a Carbon Addon are automatically documented and published to a Github Pages site. When a component is updated its latest docs will automatically be published when that component is merged into master. This allows for the Addon library and the documentation to always be 100% in sync and is one of the most valuable parts of the Carbon Addons tooling.
 
 The docs site uses [Carbon's Gatsby Theme](https://github.com/carbon-design-system/gatsby-theme-carbon) with only a slight modification to load the components docs from the installed components package. This makes sure documentation across Carbon and Carbon Addons are consistent in the way they look. It also means any md or mdx file can be added manually for extra documentation such as a Getting Started doc.
+
+MDX is based on JSX and is really only stable for React at the moment, however, they are working on adding support for other languages such as Vue. If the Addon is React based the documentation files can be mdx files and a bit more interactive. If the Addon is in another language the documentation files can be normal md files.
 
 The component's docs layout is specified within the template for the component. When a new component is created a base level docs file will be created with the required and optional section headers already prefilled. Unit tests determine if a new component's docs have been updated, and have changed enough to be considered fully documented. This helps automate the process of checking to make sure docs are up to date.
 
@@ -254,9 +250,11 @@ Often, especially when working with APIs, you will need to run the development s
 
 Templates are the basis of every component. They can significantly decrease the time it takes to make a new component and enforce consistency across different Carbon Addons libraries. If components are the most important part of a Carbon Addon, templates are the most important part of the tooling.
 
-A template is essentially a grouping of partially complete files. The template defines each file that is required for a specific type of component and also prefills many utility functions, documentation sections, and other optional or required aspects of a component. At best a template can abstract away a significant percentage of the development work needed to create a new component.
+A template is a grouping of partially complete files. The template defines each file that is required for a specific type of component and also prefills many utility functions, documentation sections, and other optional or required aspects of a component. At best a template can abstract away a significant percentage of the development work needed to create a new component.
 
 There is no real limit to what a template can be. All Carbon Addon libraries should have access to any available template. If the existing templates don't meet a specific component need, a new template can be created.
+
+Templates are specific to the language defined when the Addons library is initialized. The template general concept can and should be shared across languages, but the specific execution, tests, and requirements differ by language.
 
 Below are some examples of potential templates, their description, and a rough outline of their structure. The first three are in use within the Cloud business unit today, thus they are a little more concrete.
 
@@ -265,61 +263,77 @@ View components are presentation components. View components should only be conc
 
 **File Structure**
 
-| File | Description | Prefilled Code (%) | Required |
-|:------------- |:------------------------------|-----:| -----:|
-| index.js | Exports the View Component. | 100 | Yes|
-| (NAME).js | The primary React component. | 20| Yes|
-| (NAME).js | The tests for the primary React component. |20| Yes|
-| _styles.scss | Styles for this View component. Prefixed with a chosen prefix for this Addon. Styles are in scss to match how Carbon handles styling. | 01 | Yes|
-|code.mdx| The documentation mark down file for this component. | 20 | Yes|
-|usage.mdx| The design documentation for how this component should be used.| 00| Yes|
-|style.mdx| Design documentation on the style of this component.| 00 |Yes|
-| skeleton.js| The loading skeleton for this component. | 20|No|
+| File | Type | Description | Prefilled Code (%) | Required |
+|:-------------|:-------------|:------------------------------|-----:| -----:|
+| index | .js | Exports the View Component. | 100 | Yes|
+| (NAME)  | .js, .jsx, .vue, .ts, .hbs | The primary component. | 20| Yes|
+| (NAME).test | . js, .jsx, .vue, .ts, .hbs | The tests for the primary component. |20| Yes|
+| _styles | .scss |  Styles for this View component. Prefixed with a chosen prefix for this Addon. Styles are in scss to match how Carbon handles styling. | 01 | Yes|
+|code| .md, .mdx | The documentation mark down file for this component. | 20 | Yes|
+|usage| .md, .mdx | The design documentation for how this component should be used.| 00| Yes|
+|style| .md, .mdx | Design documentation on the style of this component.| 00 |Yes|
+| skeleton| .js, .jsx, .vue, .ts, .hbs | The loading skeleton for this component. | 20|No|
+| translations| .js | Small amount of translation strings to enfore consistency around content with a component | 20|No|
 
 #### Data Hooks
-Data hooks are an easy way of making API requests using React Hooks.  Data Hooks can be loaded into any functional react component and can retrieve data (GET) or modify data (POST) . Data Hooks are automatically cached on the client side, can utilize optimistic updates for Modify calls, and can return mock responses for local development and documentation.
+Data hooks are an easy way of making API requests using the Data Hooks utils.  Data Hooks can retrieve data (GET) or modify data (POST) . Data Hooks are automatically cached on the client side, can utilize optimistic updates for Modify calls, and return mock responses for local development and documentation.
 
-Data hooks are meant to make development with APIs on the front end significantly easier by creating a library of API calls that can be utilized without a ton of background knowledge.
+Data hooks are meant to make development with APIs on the front end significantly easier by creating a library of API calls that can be utilized without a ton of backend knowledge. It can also help enforce backend caching by routing similar calls to a single host.
 
 Every data hook will always return in the structure:
 
 ```
 {
-    key: STRING,
-    loading: Boolean,
-    Error: Object || null
-    data: Object || null
-    ...
+    key: STRING, // Referenced to the cached request. Can be provided to a Modify calls for optimistic updates
+    loading: Boolean, // Is the request currently being loaded
+    Error: Object || null // Any errors returned by the server. Null if data is returned.
+    data: Object || null // The response of the call. Null if an error is present.
+    refetch: Function // Recalls the API and updates the cache.
 }
 ```
-among other properties. This is heavily inspired by Apollo.
+among other properties. This structure heavily inspired by [Apollo](https://www.apollographql.com/).
+
+Furthermore, Data Hooks are always called with two objects.
+
+1. Params - An object of any required and optional parameters to make the request. For example, if we were trying to get information about account 123 we could pass in `{accountId: "123"}` as the Params.
+
+2. Options - Options are specific to Data Hook utils and allow the user to customize the request. Here are some potentially available options.
+
+```
+{
+     key: STRING // A user defined key used for caching.
+     skip: BOOLEAN // A boolean determining whether this call should be made or not
+     mock: BOOLEAN // A boolean determining whether to return mock data or not.
+     schema: STRING // A custom graphql schema if the API call is a graphql query.
+ } 
+```
 
 **File Structure**
 
-| File | Description | Prefilled Code (%) | Required |
-|:------------- |:------------------------------|-----:|-----:|
-| index.js | Exports the Data Hook. | 100 | Yes|
-| (NAME).js | The primary React hook. | 100| Yes|
-| (NAME).js | The tests for the primary React hook .|70| Yes|
-|request.js| A fetch call that actually makes the request. This is also exported within the index file for non React developers.| 30| yes|
-| mock.js | A file that returns either a mock object (retrieve) or a mock function (modify). | 05 | Yes|
-|schema.js| Controls the docs for the params, query, and response. If it's a Graqphl request this is used as the provided schema.| 05 | Yes|
-|code.mdx| Documentation on how to make the API request and use the Data Hook.| 05| Yes|
+| File | Type | Description | Prefilled Code (%) | Required |
+|:------------- |:--------------- |:------------------------------|-----:|-----:|
+| index | .js | Exports the Data Hook. | 100 | Yes|
+| (NAME) | .js, .ts | The primary Data Hook. Utilizes the Data Hook utility to make a request. | 100| Yes|
+| (NAME).test | .js, .ts | The tests for the primary Data Hook .|70| Yes|
+|request| .js, .ts | A fetch call that actually makes the request. This is also exported within the index file for consuming the API without any if the Data Hook utils.| 30| yes|
+| mock | .js, .ts | A file that returns either a mock object (retrieve) or a mock function (modify). | 05 | Yes|
+|schema| .js, .ts | Controls the docs for the params, query, and response. If it's a Graqphl request this is used as the provided schema. | 05 | Yes|
+|code| .md, .mdx | Documentation on how to make the API request and use the Data Hook.| 05| Yes|
 
 #### Connected
-Connected components are made up of one or more Views and one or more Data Hooks. Essentially making these components "smart" components. Connected components are used to decrease the knowledge an outside development team needs to implement a common pattern. For example, in Cloud a detail page header that loads some basic information is a great use case for a Connected component.
+Connected components are made up of one or more Views and one or more Data Hooks. Essentially making these components "smart" components. Connected components are used to decrease the knowledge an outside development team needs to implement a common pattern. For example, in Cloud, a detail page header that loads some basic information is a great use case for a Connected component as many different development teams will need that pattern.
 
 **File Structure**
 
-| File | Description | Prefilled Code (%) | Required |
-|:------------- |:------------------------------|:-----| :-----|
-| index.js | Exports the Connected Component. | 100 | Yes|
-| (NAME).js | The primary React component. | 80| Yes|
-| (NAME).js | The tests for the primary React component. |40| Yes|
-| _styles.scss | Styles for this Connected component. Prefixed with a chosen prefix for this Addon. Styles are in scss to match how Carbon handles styling. | 80 | Yes|
-|code.mdx| The documentation mark down file for this component. | 20 | Yes|
-|usage.mdx| The design documentation for how this component should be used.| 00| Yes|
-|style.mdx| Documentation on the style of this component.| 00 |Yes|
+| File | Type | Description | Prefilled Code (%) | Required |
+|:------------- |:---------- |:------------------------------|:-----| :-----|
+| index | .js | Exports the Connected Component. | 100 | Yes|
+| (NAME) | .js, .jsx, .vue, .ts, .hbs | The primary Connected component. | 80| Yes|
+| (NAME).test | .js, .jsx, .vue, .ts, .hbs | The tests for the primary Connected component. |40| Yes|
+| _styles | .scss | Styles for this Connected component. Prefixed with a chosen prefix for this Addon. Styles are in scss to match how Carbon handles styling. | 80 | Yes|
+|code | .md, .mdx | The documentation mark down file for this component. | 20 | Yes|
+|usage | .md, .mdx | The design documentation for how this component should be used.| 00| Yes|
+|style | .md, .mdx | Documentation on the style of this component.| 00 |Yes|
 
 #### Hosted
 A hosted component has the same developer experience as a Connected component, but is rendered through an API request that gets its bundle. This allows for every instance of this component to be the exact same version no matter where it's used.
