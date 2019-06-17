@@ -14,9 +14,9 @@ A Carbon Addon is a component library that acts as an extension of the Carbon De
 Carbon Addons can also contain connections to APIs and components that are already hooked up to data.
 
 #### Goals of a Carbon Addon
-- To decrease front end development time.
+- To decrease front end development time when building a product within a single busniess unit.
 - To encourage consistency across a single business unit.
-- To create a centralized place for reusable front end development patterns within a business unit.
+- To share code, concepts, and patterns across a single business unit.
 - To allow for more reusability across IBM and across business units.
 
 #### Goals of the Carbon Addon Tooling
