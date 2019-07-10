@@ -3,7 +3,7 @@
 ## Test writing
 
 ### Tests are written as framework-agnostic
-* Should support unit and end-to-end tests
+* Should support unit and integration tests
 * JavaScript executed on the DOM is separate from the assertions
 * Tests accept `window` and optional DOM fragment
     * DOM and window creation should be separate from the tests
