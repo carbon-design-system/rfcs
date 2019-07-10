@@ -12,6 +12,10 @@
     * `window` is required within the tests to perform certain functionality in the browser (e.g. input/label connection)
 * individual tests or test group setup is dictated by the runner (unit setup vs integration setup)
     * allow the tests to receive a setup (e.g. before/beforeAll)
+* tests understand when a set of test-able items exist and can trigger an iteration of a test for each item
+    * e.g. checkboxes, radio buttons, dropdowns, accordion headers - all would need the same test ran for each similar item (same test ran for each checkbox)
+    * in practice this would would mean the test would ship with a function which recognizes the elements and can loop through them, run each item through the assertions separately
+    * added benefit: individual elements would create their own error(s), helping troubleshooting
 
 ### Tests are written to be portable
 * Assertions do not have any dependencies outside of assertion definition (e.g. If Jest Assertions are used, the the Jest test framework does not also have to be used)
